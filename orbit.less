@@ -1,16 +1,27 @@
+@import "prefixer.less";
 @planet-diameter: 150px;
 @rotate-radius: @planet-diameter * .7;
 @camera: @planet-diameter * 3;
 @moon-diameter: @planet-diameter * .15;
 @orbit-period: 3s;
 
+.perspective(@val) {
+    perspective: @val;
+    -webkit-perspective: @val;
+}
+
+.perspective-origin(@val) {
+    perspective-orgin: @val;
+    -webkit-perspective-origin: @val;
+}
+
 body {
     background-color: #b0c4de;
 }
 
 .scene {
-    perspective: @camera;
-    perspective-origin: 100px;
+    .perspective(@camera);
+    .perspective-origin(100px);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -37,34 +48,36 @@ body {
     height: @moon-diameter;
     border-radius: @moon-diameter;
     background-color: #636463;
-    animation-duration: @orbit-period;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
+    .animation-duration(@orbit-period);
+    .animation-iteration-count(infinite);
+    .animation-timing-function(linear);
     z-index: 1;
 }
 
 .moon1 {
-    animation-name: orbit1;
-    transform: rotateZ(220deg) rotateY(90deg)  translate3D(0px, 0px, @rotate-radius)  rotateY(-90deg); 
+    .animation-name(orbit1);
+    .transform(rotateZ(220deg) rotateY(90deg)  translate3D(0px, 0px, @rotate-radius)  rotateY(-90deg)); 
 }
 
 .moon2 {
-    animation-name: orbit2;
-    animation-delay: (@orbit-period / 3) * -1;
-    transform: rotateZ(-50deg) rotateY(90deg)  translate3D(0px, 0px, @rotate-radius)  rotateY(-90deg); z-index: -1;
+    .animation-name(orbit2);
+    .animation-delay((@orbit-period / 3) * -1);
+    .transform(rotateZ(-50deg) rotateY(90deg)  translate3D(0px, 0px, @rotate-radius)  rotateY(-90deg)); 
+    z-index: -1;
 }
 
 .moon3 {
-    animation-name: orbit3;
-    animation-delay: (@orbit-period / 3) * -2;
-    transform: rotateZ(100deg) rotateY(90deg)  translate3D(0px, 0px, @rotate-radius)  rotateY(-90deg); z-index: -1;
+    .animation-name(orbit3);
+    .animation-delay((@orbit-period / 3) * -2);
+    .transform(rotateZ(100deg) rotateY(90deg)  translate3D(0px, 0px, @rotate-radius)  rotateY(-90deg)); 
+    -index: -1;
 }
 
 .orbitAnim(@yStart, @zFactor) {
-    0% {transform: rotateZ(@zFactor) rotateY(@yStart)  translate3D(0px, 0px, @rotate-radius)  rotateY(-1 * @yStart); z-index: -1; }
-    50% {transform: rotateZ(@zFactor)  rotateY(@yStart + 180deg)   translate3D(0px, 0px, @rotate-radius)  rotateY(-1 * @yStart - 180deg); z-index: -1; }
-    75% {transform: rotateZ(@zFactor) rotateY(@yStart + 270deg) translate3D(0px, 0px, @rotate-radius)  rotateY(-1 * @yStart - 270deg); z-index: 2;}
-    100% {transform: rotateZ(@zFactor) rotateY(@yStart + 360deg)    translate3D(0px, 0px, @rotate-radius)  rotateY(-1 * @yStart - 360deg); z-index: 2; }
+    0% {.transform(rotateZ(@zFactor) rotateY(@yStart)  translate3D(0px, 0px, @rotate-radius)  rotateY(-1 * @yStart)); z-index: -1;}
+    50% {.transform(rotateZ(@zFactor)  rotateY(@yStart + 180deg)   translate3D(0px, 0px, @rotate-radius)  rotateY(-1 * @yStart - 180deg)); z-index: -1;}
+    75% {.transform(rotateZ(@zFactor) rotateY(@yStart + 270deg) translate3D(0px, 0px, @rotate-radius)  rotateY(-1 * @yStart - 270deg)); z-index: 2;}
+    100% {.transform(rotateZ(@zFactor) rotateY(@yStart + 360deg)    translate3D(0px, 0px, @rotate-radius)  rotateY(-1 * @yStart - 360deg)); z-index: 2; }
 }
 
 @keyframes orbit1 {
@@ -76,5 +89,17 @@ body {
 }
 
 @keyframes orbit3 {
+    .orbitAnim(90deg, 100deg)
+}
+
+@-webkit-keyframes orbit1 {
+    .orbitAnim(90deg, 220deg)
+}
+
+@-webkit-keyframes orbit2 {
+    .orbitAnim(90deg, -50deg)
+}
+
+@-webkit-keyframes orbit3 {
     .orbitAnim(90deg, 100deg)
 }

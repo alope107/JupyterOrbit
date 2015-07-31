@@ -2,8 +2,8 @@ body {
   background-color: #b0c4de;
 }
 .scene {
-  perspective: 30px;
-  -webkit-perspective: 30px;
+  perspective: 450px;
+  -webkit-perspective: 450px;
   perspective-orgin: 100px;
   -webkit-perspective-origin: 100px;
   position: absolute;
